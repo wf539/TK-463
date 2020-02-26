@@ -1,0 +1,41 @@
+--70-463Ch2Ex1
+
+USE master;
+IF DB_ID('TK463DW') IS NOT NULL
+DROP DATABASE TK463DW;
+GO
+
+CREATE DATABASE TK463DW
+	ON PRIMARY
+	(
+		NAME = N'TK463DW'
+		, FILENAME = N'E:\sqldb\TK463DW.mdf'
+		, SIZE = 307200KB
+		, FILEGROWTH = 10240KB
+	)
+
+	LOG ON
+	(
+		NAME = N'TK463DW_log'
+		, FILENAME = N'F:\sqllog\TK463DW_log.ldf'
+		, SIZE = 51200KB
+		, FILEGROWTH = 10%
+	);
+GO
+
+ALTER DATABASE TK463DW
+	SET RECOVERY SIMPLE WITH NO_WAIT;
+GO
+
+------------------------------------------
+USE [TK463DW]
+GO
+
+IF OBJECT_ID('dbo.SeqCustomerDwKey', 'SO') IS NOT NULL
+	DROP SEQUENCE dbo.SeqCustomerDwKey;
+GO
+
+CREATE SEQUENCE dbo.SeqCustomerDwKey AS INT
+	START WITH 1
+	INCREMENT BY 1;
+GO
